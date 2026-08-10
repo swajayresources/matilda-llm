@@ -1,0 +1,38 @@
+{
+  "architectures": [
+    "MatildaForCausalLM"
+  ],
+  "attn_logit_softcap": 0.0,
+  "auto_map": {
+    "AutoConfig": "configuration_matilda.MatildaConfig",
+    "AutoModel": "modeling_matilda.MatildaModel",
+    "AutoModelForCausalLM": "modeling_matilda.MatildaForCausalLM"
+  },
+  "d_model": 768,
+  "dropout": 0.0,
+  "dtype": "bfloat16",
+  "final_logit_softcap": 30.0,
+  "hidden_size": 768,
+  "init_std": 0.02,
+  "max_position_embeddings": 2048,
+  "max_seq_len": 2048,
+  "mlp_activation": "relu2",
+  "mlp_multiple_of": 256,
+  "mlp_ratio": 4.0,
+  "model_type": "matilda",
+  "n_heads": 12,
+  "n_kv_heads": 4,
+  "n_layers": 18,
+  "norm_eps": 1e-06,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 18,
+  "num_key_value_heads": 4,
+  "qk_norm": true,
+  "rope_theta": 10000.0,
+  "tie_weights": true,
+  "tie_word_embeddings": true,
+  "transformers_version": "5.9.0",
+  "use_liger": false,
+  "vocab_size": 50257,
+  "z_loss_coef": 0.0001
+}

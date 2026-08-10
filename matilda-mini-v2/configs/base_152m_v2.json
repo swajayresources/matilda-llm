@@ -1,0 +1,43 @@
+{
+  "_comment": "v1.5 hero run — 152M params (18L × 768d × 12h × 4KV, head_dim 64). Reuses the existing 15B-token data/smollm_mix. Beyond v1, this run adds: deeper architecture (18L vs 12L), seq_len 2048 (vs 1024), Muon hybrid optimizer (vs AdamW), WSD schedule (vs cosine), Liger fused linear+CE kernel, z-loss 1e-4, ReLU² FFN (vs SwiGLU), final logit soft-cap 30.0. Head_dim 64 avoids the liger-kernel 0.8.0 RoPE bug at head_dim 80. Tokens/step ≈ 1.06M (40 * 13 * 2048); 14000 steps → ~14.9B tokens. Direct comparison anchor: Pythia-160M (same width, 50% more depth); secondary: Pythia-410M token-matched. BS=40 is a safe default with ~12% mem headroom on A100 40GB; bump to BS=48 if calibration shows room (drop grad_accum to ~11 to keep tokens/step ~= 1M).",
+  "model": {
+    "vocab_size": 50257,
+    "max_seq_len": 2048,
+    "d_model": 768,
+    "n_layers": 18,
+    "n_heads": 12,
+    "n_kv_heads": 4,
+    "mlp_ratio": 4.0,
+    "mlp_multiple_of": 256,
+    "tie_weights": true,
+    "qk_norm": true,
+    "z_loss_coef": 1e-4,
+    "use_liger": true,
+    "mlp_activation": "relu2",
+    "final_logit_softcap": 30.0
+  },
+  "train": {
+    "total_steps": 14000,
+    "warmup_steps": 1500,
+    "grad_accum": 13,
+    "batch_size": 40,
+    "seq_len": 2048,
+    "lr": 3e-4,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "min_lr_ratio": 0.1,
+    "optimizer": "muon",
+    "muon_lr": 0.02,
+    "lr_schedule": "wsd",
+    "wsd_stable_share": 0.8,
+    "log_every": 10,
+    "ckpt_every": 1000,
+    "keep_last": 10,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "compile": true,
+    "max_skips": 20,
+    "ckpt_dir": "checkpoints/base_152m_v2",
+    "wandb_project": "matilda-mini"
+  }
+}

@@ -1,0 +1,9 @@
+# GPU: install torch FIRST from the cu124 index (the default wheel may be a
+# cu130 build that fails CUDA init on current drivers):
+#   pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+torch>=2.4,<3.0
+numpy
+tiktoken
+datasets
+wandb
+pytest

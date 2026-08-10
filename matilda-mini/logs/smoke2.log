@@ -1,0 +1,13 @@
+[data] 6 shards from data/fwedu
+[run] model=768d/12L steps=50 bs=24x1 seq=1024 compile=True ckpt=checkpoints/calib
+step      5 | loss  9.8683 | lr 1.20e-02 | gnorm  7.05 |    56472 tok/s | mfu 45.0%
+step     10 | loss  8.9757 | lr 2.00e-02 | gnorm  8.55 |    56272 tok/s | mfu 44.9%
+step     15 | loss  8.0835 | lr 1.93e-02 | gnorm  2.21 |    55283 tok/s | mfu 44.4%
+step     20 | loss  7.5720 | lr 1.74e-02 | gnorm  2.24 |    53833 tok/s | mfu 44.0%
+step     25 | loss  7.3118 | lr 1.44e-02 | gnorm  1.26 |    54621 tok/s | mfu 43.9%
+step     30 | loss  7.1395 | lr 1.10e-02 | gnorm  0.81 |    54481 tok/s | mfu 43.7%
+step     35 | loss  6.8772 | lr 7.56e-03 | gnorm  0.54 |    54149 tok/s | mfu 43.6%
+step     40 | loss  6.9249 | lr 4.64e-03 | gnorm  0.64 |    52985 tok/s | mfu 43.4%
+step     45 | loss  6.8683 | lr 2.69e-03 | gnorm  0.52 |    53576 tok/s | mfu 43.3%
+step     50 | loss  6.8943 | lr 2.00e-03 | gnorm  0.53 |    53164 tok/s | mfu 43.2%
+EXIT_CODE=0

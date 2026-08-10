@@ -1,0 +1,32 @@
+{
+  "_comment": "The long run. ~3B tokens = total_steps*batch*grad_accum*seq_len = 5814*24*21*1024 ~= 3.0B. These bs/accum are the VALIDATED 3090 ceiling (BS=24 @ 53.4% MFU; BS>=28 OOMs on the vocab projection). On A100, raise batch_size to its ceiling (expect 64-128) and re-derive grad_accum/total_steps to keep tokens/step ~0.5M and tokens ~3B (see runbook section 6). lr 6e-4; drop to 3e-4 if grad_norm spikes.",
+  "model": {
+    "vocab_size": 50257,
+    "max_seq_len": 1024,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "n_kv_heads": 4,
+    "qk_norm": true
+  },
+  "train": {
+    "total_steps": 5814,
+    "warmup_steps": 300,
+    "grad_accum": 21,
+    "batch_size": 24,
+    "seq_len": 1024,
+    "lr": 6e-4,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "min_lr_ratio": 0.1,
+    "log_every": 10,
+    "ckpt_every": 500,
+    "keep_last": 3,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "compile": true,
+    "max_skips": 20,
+    "ckpt_dir": "checkpoints/base_124m",
+    "wandb_project": "matilda-mini"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "_comment": "15-min A100 smoke test. Goal: maximize MFU before the long run. Sweep batch_size with --set train.batch_size=N and read mfu_avg from the log. Few steps, frequent logging, compile on.",
+  "model": {
+    "vocab_size": 50257,
+    "max_seq_len": 1024,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "n_kv_heads": 4
+  },
+  "train": {
+    "total_steps": 60,
+    "warmup_steps": 10,
+    "grad_accum": 1,
+    "batch_size": 24,
+    "seq_len": 1024,
+    "lr": 3e-4,
+    "log_every": 5,
+    "ckpt_every": 60,
+    "keep_last": 1,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "compile": true,
+    "ckpt_dir": "checkpoints/calib"
+  }
+}

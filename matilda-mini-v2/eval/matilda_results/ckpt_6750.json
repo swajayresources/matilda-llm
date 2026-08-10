@@ -1,0 +1,61 @@
+{
+  "results": {
+    "piqa": {
+      "name": "piqa",
+      "alias": "piqa",
+      "sample_len": 1838,
+      "acc,none": 0.6452665941240479,
+      "acc_stderr,none": 0.011162617854280254,
+      "acc_norm,none": 0.6376496191512514,
+      "acc_norm_stderr,none": 0.011215040215104454
+    },
+    "arc_easy": {
+      "name": "arc_easy",
+      "alias": "arc_easy",
+      "sample_len": 2376,
+      "acc,none": 0.5454545454545454,
+      "acc_stderr,none": 0.010217299762709388,
+      "acc_norm,none": 0.47558922558922556,
+      "acc_norm_stderr,none": 0.010247548905242324
+    },
+    "winogrande": {
+      "name": "winogrande",
+      "alias": "winogrande",
+      "sample_len": 1267,
+      "acc,none": 0.5185477505919495,
+      "acc_stderr,none": 0.014042813708888347
+    },
+    "hellaswag": {
+      "name": "hellaswag",
+      "alias": "hellaswag",
+      "sample_len": 10042,
+      "acc,none": 0.30770762796255724,
+      "acc_stderr,none": 0.004606015773125622,
+      "acc_norm,none": 0.3436566421031667,
+      "acc_norm_stderr,none": 0.0047395753805088295
+    },
+    "lambada_openai": {
+      "name": "lambada_openai",
+      "alias": "lambada_openai",
+      "sample_len": 5153,
+      "perplexity,none": 83.15087318072834,
+      "perplexity_stderr,none": 3.835488010291552,
+      "acc,none": 0.2724626431205123,
+      "acc_stderr,none": 0.006202877500840255
+    }
+  },
+  "config": {
+    "ckpt_step": 6750,
+    "ckpt_path": "/workspace/matilda-mini-v2/checkpoints/base_152m_v2/ckpt_6750.pt",
+    "tokens_seen": 7077888000,
+    "tasks": [
+      "piqa",
+      "arc_easy",
+      "winogrande",
+      "hellaswag",
+      "lambada_openai"
+    ],
+    "batch_size": 16,
+    "limit": 0
+  }
+}

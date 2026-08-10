@@ -1,0 +1,27 @@
+[data] 6 shards from data/fwedu
+[run] model=768d/12L steps=50 bs=24x1 seq=1024 compile=False ckpt=checkpoints/calib
+Traceback (most recent call last):
+  File "/workspace/matilda-mini/run.py", line 83, in <module>
+    main()
+  File "/workspace/matilda-mini/run.py", line 79, in main
+    Trainer(mcfg, tcfg, stream).train()
+  File "/workspace/matilda-mini/src/matilda/train.py", line 239, in train
+    result = self._step()
+             ^^^^^^^^^^^^
+  File "/workspace/matilda-mini/src/matilda/train.py", line 214, in _step
+    _, loss = self.model(x, y)
+              ^^^^^^^^^^^^^^^^
+  File "/venv/main/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/venv/main/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/matilda-mini/src/matilda/model.py", line 203, in forward
+    loss = F.cross_entropy(
+           ^^^^^^^^^^^^^^^^
+  File "/venv/main/lib/python3.12/site-packages/torch/nn/functional.py", line 3494, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.60 GiB. GPU 0 has a total capacity of 23.57 GiB of which 3.64 GiB is free. Process 2548324 has 19.92 GiB memory in use. Of the allocated memory 19.46 GiB is allocated by PyTorch, and 155.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+EXIT_CODE=1

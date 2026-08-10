@@ -1,0 +1,13 @@
+# GPU: install torch FIRST from the cu124 index (the default wheel may be a
+# cu130 build that fails CUDA init on current drivers):
+#   pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+torch>=2.4,<3.0
+numpy
+tiktoken
+datasets
+wandb
+pytest
+
+# v2 (350M hero) only. liger-kernel needs CUDA Triton, so install LAST and
+# only on the GPU instance. CPU dev boxes leave use_liger=False and skip it.
+liger-kernel>=0.4.0; platform_system != "Windows"

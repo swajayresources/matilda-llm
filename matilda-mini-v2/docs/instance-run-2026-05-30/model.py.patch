@@ -1,0 +1,30 @@
+diff --git a/src/matilda/model.py b/src/matilda/model.py
+index 490a0ca..92e7d84 100644
+--- a/src/matilda/model.py
++++ b/src/matilda/model.py
+@@ -27,6 +27,11 @@ from .config import ModelConfig
+ def _import_liger():
+     """Lazy import so CPU tests don't pay for liger-kernel install.
+     Raises ImportError with a helpful message if use_liger=True without it."""
++    # Liger 0.8.0 RMSNorm calls torch.distributed.tensor.DTensor at runtime;
++    # in torch 2.6 that submodule isn't auto-loaded as an attribute, so the
++    # first forward dies with AttributeError under eager or a CUDA illegal
++    # memory access under torch.compile. Importing the submodule registers it.
++    import torch.distributed.tensor  # noqa: F401
+     try:
+         from liger_kernel.transformers.rms_norm import LigerRMSNorm
+         from liger_kernel.transformers.rope import liger_rotary_pos_emb
+@@ -109,8 +114,11 @@ class Attention(nn.Module):
+         self._liger_rope = liger[1] if liger else None
+ 
+     def _apply_rope(self, q, k, cos, sin):
+-        if self._liger_rope is not None:
+-            return self._liger_rope(q, k, cos, sin)
++        # liger_rotary_pos_emb (Triton) crashes torch.compile autotune with
++        # CUDA illegal memory access on liger-kernel 0.8.0 + torch 2.6,
++        # independent of head_dim (reproduced at head_dim=80 and head_dim=64).
++        # Eager apply_rope is < 1% of step time; LigerRMSNorm + LigerFusedLinearCE
++        # stay engaged and carry the throughput claim.
+         return apply_rope(q, cos, sin), apply_rope(k, cos, sin)
+ 
+     def forward(self, x, cos, sin):

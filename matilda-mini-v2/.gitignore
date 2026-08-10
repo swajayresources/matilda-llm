@@ -1,0 +1,19 @@
+# caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# data + model artifacts (regenerated; never commit)
+data/
+checkpoints/
+results/
+*.bin
+*.pt
+*.jsonl
+wandb/
+
+# env
+.venv/
+venv/
+.env
