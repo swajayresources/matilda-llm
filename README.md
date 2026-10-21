@@ -30,6 +30,8 @@ Decoder-only transformers trained from the ground up in **pure PyTorch â€” 
 
 **41 wins / 3 ties / 2 losses** across 10 checkpoints Ã— 5 tasks (lm-eval-harness).
 
+**What “token-matched” means, precisely.** Comparisons use the closest checkpoint by tokens seen: Matilda-152M at **7.50B tokens** vs Pythia-160M step 4000 (**8.39B tokens**). Pythia-160M's final model was trained on **~300B tokens (~40× more)**, so this is a **compute-efficiency** comparison at equal budget — not a claim that a 7.5B-token model beats fully-trained Pythia-160M.
+
 ## Infrastructure highlights
 
 - **Crash-safe training**: bit-for-bit checkpoint resume (<1e-6), NaN/Inf guards, SIGTERM spot-instance handling â€” multi-day runs never restart from zero
