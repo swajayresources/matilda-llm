@@ -32,6 +32,8 @@ Decoder-only transformers trained from the ground up in **pure PyTorch â€” 
 
 **What “token-matched” means, precisely.** Comparisons use the closest checkpoint by tokens seen: Matilda-152M at **7.50B tokens** vs Pythia-160M step 4000 (**8.39B tokens**). Pythia-160M's final model was trained on **~300B tokens (~40× more)**, so this is a **compute-efficiency** comparison at equal budget — not a claim that a 7.5B-token model beats fully-trained Pythia-160M.
 
+**This is not a clean architecture comparison.** Three confounds: (1) **data** — FineWeb-Edu-dedup (83.3%) + Cosmopedia v2 (16.7%), a 2024 quality-filtered/synthetic corpus, versus Pythia's The Pile (released 2020, not deduplicated for this checkpoint); (2) **capacity** — 113M non-embedding parameters (18 layers, tied embeddings, 152M total) versus Pythia-160M's 85M non-embedding (12 layers, untied embeddings, 162M total); (3) **recipe** — Muon+AdamW, WSD, QK-norm, ReLU² FFN and logit soft-cap. The result supports “a modern small-model recipe reaches Pythia-160M parity at ~1/40th the tokens”, not “our architecture is better”. Pythia was also designed for interpretability research rather than downstream benchmark performance.
+
 ## Infrastructure highlights
 
 - **Crash-safe training**: bit-for-bit checkpoint resume (<1e-6), NaN/Inf guards, SIGTERM spot-instance handling â€” multi-day runs never restart from zero
