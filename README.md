@@ -34,6 +34,10 @@ Decoder-only transformers trained from the ground up in **pure PyTorch â€” 
 
 **This is not a clean architecture comparison.** Three confounds: (1) **data** — FineWeb-Edu-dedup (83.3%) + Cosmopedia v2 (16.7%), a 2024 quality-filtered/synthetic corpus, versus Pythia's The Pile (released 2020, not deduplicated for this checkpoint); (2) **capacity** — 113M non-embedding parameters (18 layers, tied embeddings, 152M total) versus Pythia-160M's 85M non-embedding (12 layers, untied embeddings, 162M total); (3) **recipe** — Muon+AdamW, WSD, QK-norm, ReLU² FFN and logit soft-cap. The result supports “a modern small-model recipe reaches Pythia-160M parity at ~1/40th the tokens”, not “our architecture is better”. Pythia was also designed for interpretability research rather than downstream benchmark performance.
 
+## Ablations
+
+- [Muon vs AdamW at 124M / 300M tokens](docs/ablation-muon-vs-adamw.md) — matched-token A/B: Muon 3.5570 vs AdamW 3.7236 (−0.167 nats, ~15% lower perplexity), 2026-05-30, plus the independent 2026-06-10 Maincode follow-up at matched loss.
+
 ## Infrastructure highlights
 
 - **Crash-safe training**: bit-for-bit checkpoint resume (<1e-6), NaN/Inf guards, SIGTERM spot-instance handling â€” multi-day runs never restart from zero
